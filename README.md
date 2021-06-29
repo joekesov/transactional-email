@@ -11,6 +11,11 @@ To enter the container
 docker-compose exec server bash
 ```
 
+To install the project
+```bash
+composer install
+```
+
 To create a new project
 ```bash
 composer create-project laravel/laravel .
