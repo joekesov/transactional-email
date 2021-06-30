@@ -16,6 +16,11 @@ To install the project
 composer install
 ```
 
+To migrate the Database 
+```bash
+php artisan migrate
+```
+
 To create a new project
 ```bash
 composer create-project laravel/laravel .
