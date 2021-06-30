@@ -21,6 +21,11 @@ To migrate the Database
 php artisan migrate
 ```
 
+To run the queue
+```bash
+php artisan queue:work
+```
+
 To create a new project
 ```bash
 composer create-project laravel/laravel .

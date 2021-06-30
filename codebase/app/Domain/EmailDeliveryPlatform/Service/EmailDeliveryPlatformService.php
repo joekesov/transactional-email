@@ -27,7 +27,7 @@ class EmailDeliveryPlatformService
     {
         $validator = Validator::make($messageParams->toArray(), [
             'to.*.email' => ['required', ],
-            'to.*.name' => ['required',],
+//            'to.*.name' => ['required',],
             'subject' => ['required'],
             'contentType' => ['required', Rule::in(['text/plain', 'text/html']),],
             'content' => ['required'],
