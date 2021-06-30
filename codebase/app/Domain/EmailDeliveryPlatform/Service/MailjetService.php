@@ -3,50 +3,27 @@
 
 namespace App\Domain\EmailDeliveryPlatform\Service;
 
+
+use App\Domain\EmailDeliveryPlatform\Service\AbstractPlatformService;
 use App\Domain\EmailDeliveryPlatform\ValueObject\MessageParamsVO;
 use App\Models\EmailDeliveryPlatform;
 use App\Domain\EmailDeliveryPlatform\Enom\EmailDeliveryPlatformEnom;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\Response;
 
-class MailjetService
+class MailjetService extends AbstractPlatformService
 {
-    private $platform;
-
-    public function __construct()
+    public function getPlatformName(): string
     {
-        $this->init();
+        return EmailDeliveryPlatformEnom::MAILJET_PLATFORM;
     }
 
-    public function init()
+    protected function checkResponse(Response $response): bool
     {
-        $this->platform = EmailDeliveryPlatform::firstWhere('name', EmailDeliveryPlatformEnom::MAILJET_PLATFORM);
-        if (empty($this->platform)) {
-            throw new \Exception('Platform is empty');
-        }
-    }
-
-    public function sendMessage(MessageParamsVO $messageParams)
-    {
-        $http = $this->getPlatformCredentials();
-        $response = $http->post($this->platform->url, $this->getParams($messageParams));
-
-        dump($response);
-    }
-
-    public function getPlatformCredentials(): PendingRequest
-    {
-        $basicAuth = $this->platform->basicAuth;
-        if (!empty($basicAuth)) {
-            return Http::withBasicAuth($basicAuth->username, $basicAuth->password);
+        if ($response->status() != 200) {
+            return false;
         }
 
-        $barerToken = $this->platform->barerToken;
-        if (!empty($barerToken)) {
-            return Http::withToken($barerToken->token);
-        }
-
-        throw new \Exception('There are no credential for this delivery platform');
+        return true;
     }
 
     public function getParams(MessageParamsVO $messageParams): array
