@@ -135,4 +135,5 @@ php artisan test --testsuite=Feature --stop-on-failure
 ```
 
 ##Final thoughts
+
 This task could be structured in a better way. It should be used only as an example.
