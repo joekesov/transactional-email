@@ -53,5 +53,10 @@ abstract class AbstractPlatformService
         return $this->checkResponse($response);
     }
 
+    public function getPlatform(): EmailDeliveryPlatform
+    {
+        return $this->platform;
+    }
+
     abstract protected function checkResponse(Response $response): bool;
 }

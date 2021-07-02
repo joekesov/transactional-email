@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\MessageLog;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,5 +43,13 @@ class EmailDeliveryPlatform extends Model
     public function barerToken()
     {
         return $this->hasOne(BarerToken::class);
+    }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function messageLog()
+    {
+        return $this->hasMany(MessageLog::class);
     }
 }

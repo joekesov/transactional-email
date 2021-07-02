@@ -29,46 +29,11 @@ class MailController extends BaseController
             $messageParams->content = $request->input('content');
 
             $this->service->sendMessageToQueue($messageParams);
-
-
-//            $to = $request->input('to');
-//            $subject = $request->input('subject');
-//            $contentType = $request->input('contentType');
-//            $content = $request->input('content');
-
-
-
-
-//            $validator = Validator::make([
-//                'name' => $name,
-//                'url' => $url,
-//                'from_email' => $fromEmail,
-//                'from_name' => $fromName,
-//            ], [
-//                'name' => [
-//                    'required',
-////                'unique:email_delivery_platform'
-//                ],
-//                'url' => ['required', 'url'],
-//                'from_email' => ['required', 'email'],
-//                'from_name' => ['required'],
-//            ]);
-
-
-
-
-
-            // Mailjet -----------------------
-//            $this->sendByMailjet();
-
-            // SendGrid ---------------------
-//            $this->sendBySendGrid();
-
         }
     }
 
-    private function sendByMailjet()
-    {
+//    private function sendByMailjet()
+//    {
 //        $params = [
 //            'Messages' => [
 //                [
@@ -93,11 +58,11 @@ class MailController extends BaseController
 //            ->post('https://api.mailjet.com/v3.1/send', $params);
 //
 //        dump($response);
-    }
+//    }
 
 
-    private function sendBySendGrid()
-    {
+//    private function sendBySendGrid()
+//    {
 //        $response = Http::withToken('token')
 //            ->post('https://api.sendgrid.com/v3/mail/send', [
 //                'personalizations' => [
@@ -122,5 +87,5 @@ class MailController extends BaseController
 //            ]);
 //
 //        return $response;
-    }
+//    }
 }
