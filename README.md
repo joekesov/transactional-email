@@ -115,9 +115,7 @@ http://localhost:8103/api/send/email
    "content": "Content"
 }
 ```
-
 The Content Type could be: `text/plain` or `text/html`
-
 
 9. Once the request is sent you will have to run the queue
 ```bash
@@ -135,3 +133,6 @@ php artisan test
 
 php artisan test --testsuite=Feature --stop-on-failure
 ```
+
+##Final thoughts
+This task could be structured in a better way. It should be used only as an example.
