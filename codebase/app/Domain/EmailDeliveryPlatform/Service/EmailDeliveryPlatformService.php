@@ -65,7 +65,7 @@ class EmailDeliveryPlatformService
             $isMessageSent = $service->sendMessage($messageParams);
             if ($isMessageSent) {
                 $platform = $service->getPlatform();
-                $this->logMessage($platform, $messageParams->subject, EmailDeliveryPlatformEnom::MESSAGE_SENT_STATUS);
+                $this->logMessage($platform, $messageParams->to['email'], $messageParams->subject, EmailDeliveryPlatformEnom::MESSAGE_SENT_STATUS);
 
                 break;
             }
@@ -74,9 +74,10 @@ class EmailDeliveryPlatformService
         return $isMessageSent;
     }
 
-    public function logMessage(EmailDeliveryPlatform $platform, $subject, $status): void
+    public function logMessage(EmailDeliveryPlatform $platform, string $email, string $subject, int $status): void
     {
         $messageLog = new MessageLog();
+        $messageLog->email = $email;
         $messageLog->subject = $subject;
         $messageLog->status = $status;
         $platform->messageLog()->save($messageLog);

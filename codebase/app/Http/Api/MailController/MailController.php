@@ -28,8 +28,16 @@ class MailController extends BaseController
             $messageParams->contentType = $request->input('contentType');
             $messageParams->content = $request->input('content');
 
-            $this->service->sendMessageToQueue($messageParams);
+            try {
+                $this->service->sendMessageToQueue($messageParams);
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 400);
+            }
+
+            return response()->json(null, 202);
         }
+
+        return response()->json([], 400);
     }
 
 //    private function sendByMailjet()

@@ -16,6 +16,7 @@ class CreateMessageLogsTable extends Migration
         Schema::create('message_log', function (Blueprint $table) {
             $table->id();
             $table->foreignId('email_delivery_platform_id');
+            $table->string('email');
             $table->string('subject');
             $table->smallInteger('status')->unsigned();
             $table->timestamps();
