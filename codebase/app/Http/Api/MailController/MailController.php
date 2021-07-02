@@ -31,13 +31,27 @@ class MailController extends BaseController
             try {
                 $this->service->sendMessageToQueue($messageParams);
             } catch (\Exception $e) {
-                return response()->json(['error' => $e->getMessage()], 400);
+                $errors = explode(';', $e->getMessage());
+                $responseData = [
+                    'status' => 400,
+                    'errors' => $errors,
+                ];
+
+                return response()->json($responseData, 400);
             }
 
-            return response()->json(null, 202);
+            return response()->json([
+                'status' => 202,
+                'message' => 'Request Accepted'
+            ], 202);
         }
 
-        return response()->json([], 400);
+        return response()->json([
+            'status' => 400,
+            'errors' => [
+                'The expected request is application/json'
+            ]
+        ], 400);
     }
 
 //    private function sendByMailjet()

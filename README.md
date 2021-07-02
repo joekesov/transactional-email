@@ -26,9 +26,11 @@ To run the queue
 php artisan queue:work
 ```
 
-To start the queue
+To run the tests
 ```bash
-php artisan queue:work
+php artisan test
+
+php artisan test --testsuite=Feature --stop-on-failure
 ```
 
 To create a new project

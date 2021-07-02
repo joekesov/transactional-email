@@ -52,7 +52,16 @@ class SendEmails extends Command
         );
         $messageParams->content = $this->ask('What is the content of the email?');
 
-        $service->sendMessageToQueue($messageParams);
+        try {
+            $service->sendMessageToQueue($messageParams);
+        } catch (\Exception $e) {
+            $errors = explode(';', $e->getMessage());
+            foreach ($errors as $error) {
+                $this->error($error);
+            }
+
+            return 1;
+        }
 
         return 0;
     }

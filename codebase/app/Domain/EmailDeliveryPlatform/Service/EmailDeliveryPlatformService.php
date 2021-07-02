@@ -28,7 +28,7 @@ class EmailDeliveryPlatformService
     public function sendMessageToQueue(MessageParamsVO $messageParams): void
     {
         $validator = Validator::make($messageParams->toArray(), [
-            'to.*.email' => ['required', ],
+            'to.*.email' => ['required', 'email'],
 //            'to.*.name' => ['required',],
             'subject' => ['required'],
             'contentType' => ['required', Rule::in(['text/plain', 'text/html']),],
@@ -46,7 +46,7 @@ class EmailDeliveryPlatformService
             $singleMessageParams->contentType = $messageParams->contentType;
             $singleMessageParams->content = $messageParams->content;
 
-            SendEmail::dispatch($singleMessageParams);
+            SendEmail::dispatch($singleMessageParams)->onQueue('default');;
         }
     }
 
